@@ -16,7 +16,7 @@ module.exports = {
           'vue-style-loader',
           'css-loader'
         ],
-      },      {
+      }, {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
@@ -48,7 +48,11 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    overlay: true
+    proxy: {
+      '/': {
+        target: 'https://vuechatroom.herokuapp.com:3000/'
+      }
+    }
   },
   performance: {
     hints: false
