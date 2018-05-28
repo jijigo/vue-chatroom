@@ -9,9 +9,9 @@ var port = 4000;
 app.listen(process.env.PORT || port, function () {
     console.log('api listen on 4000')
 });
-app.get('/', (req, res) => {
-    res.send('hello');
-});
+// app.get('/', (req, res) => {
+//     res.send('hello');
+// });
 
 const messages = [
     { name: 'Majar', message: 'Good Night.' }
