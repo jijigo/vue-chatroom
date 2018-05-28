@@ -1,38 +1,53 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <h1>聊起來</h1>
     <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
+      <li v-for="msg in messages">
+        {{ msg.name }}: 
+        {{ msg.message }}
+      </li>
     </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+
+    <input ref="name" type="text" placeholder="name" value="路人">
+    <input ref="message" type="text" placeholder="message">
+    <button @click="addMessage">留言</button>
   </div>
 </template>
 
 <script>
+import io from "socket.io-client";
+const socket = io("http://localhost:3000/");
+socket.emit("message", "hello world.");
+
 export default {
-  name: 'app',
-  data () {
+  name: "app",
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      messages: []
+    };
+  },
+  created() {
+    socket.on("syncMessages", messages => {
+      console.log(messages);
+      this.messages = messages;
+    });
+  },
+  methods: {
+    addMessage() {
+      socket.emit("newMessage", {
+        name: this.$refs.name.value,
+        message: this.$refs.message.value
+      });
+      this.$refs.name.value = "";
+      this.$refs.message.value = "";
     }
   }
-}
+};
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -40,7 +55,8 @@ export default {
   margin-top: 60px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 
@@ -50,7 +66,6 @@ ul {
 }
 
 li {
-  display: inline-block;
   margin: 0 10px;
 }
 
