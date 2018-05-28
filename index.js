@@ -6,7 +6,7 @@ console.log("socket listen on 3000");
 // 用api 方式取得
 var app = require('express')();
 var port = 4000;
-app.listen(port, function () {
+app.listen(process.env.PORT || port, function () {
     console.log('api listen on 4000')
 });
 app.get('/', (req, res) => {

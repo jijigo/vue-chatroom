@@ -48,11 +48,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     noInfo: true,
-    proxy: {
-      '/': {
-        target: 'https://vuechatroom.herokuapp.com:3000/'
-      }
-    }
+    overlay: true
   },
   performance: {
     hints: false
