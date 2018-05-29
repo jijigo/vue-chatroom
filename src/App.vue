@@ -16,10 +16,7 @@
 
 <script>
 import io from "socket.io-client";
-console.log("hi app.vue");
-const socket = io("https://vuechatroom.herokuapp.com:3000/");
-// const socket = io("http://localhost:3000/");
-socket.emit("message", "hello world.");
+const socket = io("http://127.0.0.1:4040");
 
 export default {
   name: "app",
@@ -29,6 +26,8 @@ export default {
     };
   },
   created() {
+    console.log("hi app.vue");
+    // socket.emit("newMessage", "hello world.");
     socket.on("syncMessages", messages => {
       console.log(messages);
       this.messages = messages;
@@ -36,6 +35,7 @@ export default {
   },
   methods: {
     addMessage() {
+      console.log(this.$refs.name.value, this.$refs.message.value);
       socket.emit("newMessage", {
         name: this.$refs.name.value,
         message: this.$refs.message.value
