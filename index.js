@@ -14,7 +14,7 @@ app.listen(process.env.PORT || port, function () {
 });
 
 app.get('/', (req, res) => {
-    res.sendfile(__dirname + '/index.html');
+    res.sendfile(__dirname + './index.html');
 });
 
 // app.use(express.static(path.resolve(__dirname, './dist')))
