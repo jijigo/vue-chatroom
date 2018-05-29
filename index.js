@@ -44,8 +44,8 @@ const serveStatic = require('serve-static')
 // });
 
 const http = require('http');
-// const hostname = '0.0.0.0';
-const hostname = '127.0.0.1';
+const hostname = '0.0.0.0';
+// const hostname = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
 var app = require('express')();
 app.use("/", serveStatic(path.join(__dirname, '/dist')));
