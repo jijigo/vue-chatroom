@@ -10,10 +10,17 @@ console.log("socket listen on 3000");
 var app = require('express')();
 var port = 4000;
 // app.use(express.static(path.resolve(__dirname, '/dist')));
-app.get('*', function (req, res) {
-    const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
-    res.send(html);
+// app.get('*', function (req, res) {
+//     const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
+//     res.send(html);
+// });
+app.use(express.static(__dirname + '/'));
+//////////////////////
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'index.html'));
 });
+//////////////////////
+app.listen(port);
 app.listen(process.env.PORT || port, function () {
     console.log('api listen on 4000');
 });
