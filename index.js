@@ -20,7 +20,6 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 //////////////////////
-app.listen(port);
 app.listen(process.env.PORT || port, function () {
     console.log('api listen on 4000');
 });
