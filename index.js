@@ -12,15 +12,16 @@ var port = 4000;
 app.listen(process.env.PORT || port, function () {
     console.log('api listen on 4000')
 });
-// app.get('/', (req, res) => {
-//     res.sendfile(__dirname + '/index.html');
-// });
 
-app.use(express.static(path.resolve(__dirname, './dist')))
-app.get('*', function (req, res) {
-    const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
-    res.send(html);
+app.get('/', (req, res) => {
+    res.sendfile(__dirname + '/index.html');
 });
+
+// app.use(express.static(path.resolve(__dirname, './dist')))
+// app.get('*', function (req, res) {
+//     const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
+//     res.send(html);
+// });
 
 const messages = [
     { name: 'Majar', message: 'Good Night.' }
