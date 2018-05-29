@@ -9,7 +9,11 @@ console.log("socket listen on 3000");
 // 用api 方式取得
 var app = require('express')();
 var port = 4000;
-app.use(express.static(path.resolve(__dirname, '/dist')));
+// app.use(express.static(path.resolve(__dirname, '/dist')));
+app.get('*', function (req, res) {
+    const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
+    res.send(html);
+});
 app.listen(process.env.PORT || port, function () {
     console.log('api listen on 4000');
 });
@@ -19,10 +23,7 @@ app.listen(process.env.PORT || port, function () {
 // });
 
 
-// app.get('*', function (req, res) {
-//     const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
-//     res.send(html);
-// });
+
 
 const messages = [
     { name: 'Majar', message: 'Good Night.' }
