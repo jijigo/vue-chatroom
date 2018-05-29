@@ -1,13 +1,18 @@
 var path = require('path')
-var webpack = require('webpack')
+var webpack = require('webpack');
+const HtmlWebpackPlugin = require('vue-html-webpack-plugin')
 
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'build.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      vue: true
+    })
+  ],
   module: {
     rules: [
       {

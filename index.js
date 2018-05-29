@@ -1,6 +1,7 @@
-// const fs = require('fs');
-// const path = require('path');
-// const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const serveStatic = require('serve-static')
 // var server = require('http').createServer();
 // var io = require('socket.io')(server);
 // server.listen(4040);
@@ -43,13 +44,22 @@
 // });
 
 const http = require('http');
-const hostname = '0.0.0.0';
+// const hostname = '0.0.0.0';
+const hostname = '127.0.0.1';
 const PORT = process.env.PORT || 3000;
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World\n');
-});
-server.listen(PORT, hostname, () => {
+var app = require('express')();
+app.use("/", serveStatic(path.join(__dirname, '/dist')));
+
+// Catch all routes and redirect to the index file
+// app.get('/', function (req, res) {
+//     res.sendFile(__dirname + '/index.html');
+// });
+// app.use(serveStatic(__dirname + "/dist"));
+// const server = http.createServer((req, res) => {
+//     res.statusCode = 200;
+//     res.setHeader('Content-Type', 'text/plain');
+//     res.end('Hello World\n');
+// });
+app.listen(PORT, hostname, () => {
     console.log(`Server running at http://${hostname}:${PORT}/`);
 });
