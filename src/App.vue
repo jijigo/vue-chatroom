@@ -16,6 +16,7 @@
 
 <script>
 import io from "socket.io-client";
+console.log("hi app.vue");
 const socket = io("https://vuechatroom.herokuapp.com:3000/");
 socket.emit("message", "hello world.");
 
