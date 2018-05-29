@@ -17,8 +17,8 @@ app.listen(process.env.PORT || port, function () {
 app.use(express.static(path.resolve(__dirname, './dist')))
 app.get('*', function (req, res) {
     const html = fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8')
-    res.send(html)
-})
+    res.send(html);
+});
 
 const messages = [
     { name: 'Majar', message: 'Good Night.' }
