@@ -16,7 +16,7 @@
 
 <script>
 import io from "socket.io-client";
-const socket = io("http://127.0.0.1:4040");
+const socket = io("http://0.0.0.0:4040");
 
 export default {
   name: "app",
