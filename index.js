@@ -2,7 +2,11 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const serveStatic = require('serve-static');
-// const http = require('http');
+var secure = require('express-force-https');
+var https = require('https');
+var privateKey = fs.readFileSync('ssl/private.pem', 'utf8');
+var certificate = fs.readFileSync('ssl/file.crt', 'utf8');
+var credentials = { key: privateKey, cert: certificate };
 
 const hostname = '0.0.0.0';
 // const hostname = '127.0.0.1';
@@ -16,12 +20,13 @@ app.listen(PORT, hostname, () => {
 });
 
 var app2 = require('express')();
-var http = require('http').Server(app2);
+// var http = require('http').Server(app2);
+var http = https.createServer(credentials, app2);
 var io = require('socket.io')(http);
 
-var server = require('http').createServer();
-var io = require('socket.io')(server);
-server.listen(4040);
+// var server = require('http').createServer();
+// var io = require('socket.io')(server);
+http.listen(4040);
 console.log("socket listen on 4040");
 
 const messages = [
