@@ -16,7 +16,7 @@
 
 <script>
 import io from "socket.io-client";
-const socket = io("https://0.0.0.0:4040");
+const socket = io("https://vuechatroom.herokuapp.com:4040");
 
 export default {
   name: "app",
