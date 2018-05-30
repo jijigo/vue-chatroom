@@ -3,10 +3,15 @@ const path = require('path');
 const express = require('express');
 const serveStatic = require('serve-static');
 var secure = require('express-force-https');
+var forceSsl = require('express-force-ssl');
 var https = require('https');
-var privateKey = fs.readFileSync('ssl/private.pem', 'utf8');
-var certificate = fs.readFileSync('ssl/file.crt', 'utf8');
-var credentials = { key: privateKey, cert: certificate };
+// var privateKey = fs.readFileSync('etc/key.pem', 'utf8');
+// // var certificate = fs.readFileSync('ssl/file.crt', 'utf8');
+// var credentials = { key: privateKey, cert: certificate };
+const httpsOptions = {
+    key: fs.readFileSync('etc/key.pem'),
+    cert: fs.readFileSync('etc/cert.pem')
+}
 
 const hostname = '0.0.0.0';
 // const hostname = '127.0.0.1';
@@ -19,15 +24,24 @@ app.listen(PORT, hostname, () => {
     console.log(`Server running at http://${hostname}:${PORT}/`);
 });
 
-var app2 = require('express')();
-// var http = require('http').Server(app2);
-var http = https.createServer(credentials, app2);
-var io = require('socket.io')(http);
-
-// var server = require('http').createServer();
+// var app2 = require('express')();
+// // var https = require('http').Server(app2);
+// var https = require('https').createServer(httpsOptions, app2);
+// // var https = https.createServer(credentials, app2);
+// var io = require('socket.io')(https);
+// // var server = require('http').createServer();
 // var io = require('socket.io')(server);
-http.listen(4040);
-console.log("socket listen on 4040");
+// https.listen(4040);
+// console.log("socket listen on 4040");
+
+//https & socket port
+var https = require('https').createServer(httpsOptions);
+https.listen(4040)
+var io = require('socket.io')(https);
+
+// var httpsServer = https.createServer(credentials, app).listen(4040, '0.0.0.0');
+// var io = require('socket.io').listen(httpsServer);
+// console.log("socket listen on 4040");
 
 const messages = [
     { name: 'Majar', message: 'Good Night.' }
